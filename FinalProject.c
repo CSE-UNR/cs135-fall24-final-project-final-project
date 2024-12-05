@@ -7,8 +7,8 @@
 
 void ReadFile( FILE* file_pointer, char rows[][STR_CAP]);
 int NumRows( FILE* file_pointer, char rows[][STR_CAP]);
-void BlankWord( FILE*file_pointer, char rows[][STR_CAP]);
-void displayword( FILE* file_pointer, char rows[][STR_CAP]);
+void BlankWord( FILE*file_pointer, char rows[][STR_CAP], char blankword[STR_CAP]);
+int BlankNum( FILE*file_pointer, char rows[][STR_CAP], char blankword[STR_CAP]);
 
 	int main(){
 
@@ -20,9 +20,12 @@ void displayword( FILE* file_pointer, char rows[][STR_CAP]);
 			return 0;
 			}
 	char rows[NUMROWS][STR_CAP];
-	displayword(file_pointer, rows);
+	char blankword[STR_CAP];
 	
-	
+
+		
+		
+		
 
 			
 			
@@ -46,30 +49,32 @@ void displayword( FILE* file_pointer, char rows[][STR_CAP]);
 		return rowindex;
 		}
 //determine blank word
-	void BlankWord( FILE*file_pointer, char rows[][STR_CAP]){
+	void BlankWord( FILE*file_pointer, char rows[][STR_CAP], char blankword[STR_CAP] ){
 		
 		ReadFile( file_pointer, rows);
 		int rowindex=NumRows(file_pointer,rows);
-		char blankword[rowindex];
-		for(int i=0; i<rowindex; i++){
-			if(i%2 == 0){
-				for(int k=0; k<i; k++){
-					rows[i][0]=blankword[k];
-					}
-				}
-			}
-		}
 		
-//display what kind of word
-	void displayword( FILE* file_pointer, char rows[][STR_CAP]){
-		ReadFile( file_pointer, rows);
-		int rowindex=NumRows(file_pointer, rows);
-		BlankWord( file_pointer, rows);
-		char blankword[rowindex];
-		for(int i=0; i<rowindex; i++){
-			printf("%c", blankword[i]);
+		int i=0;
+		int j=0;	
+			while(i<rowindex && rows[i][0] != '\0'){
+				if( (i-1)%2 == 0){
+				 blankword[j++]=rows[i][0];
 			}
+				i++;
 			}
+		blankword[j]='\0'; 
+		
+		}
+//get size of blankword
+	int BlankNum( FILE*file_pointer, char rows[][STR_CAP], char blankword[STR_CAP]){
+		BlankWord(file_pointer, rows, blankword);
+			int index;
+			for(index=0; blankword[index]!='\0'; index++){
+			}
+			return index;
+			}
+		
+
 			
 			
 			
